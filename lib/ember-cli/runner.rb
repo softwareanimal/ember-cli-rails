@@ -2,10 +2,11 @@ module EmberCLI
   class Runner
     TRUE_PROC = ->(*){ true }
 
-    attr_reader :app, :path
+    attr_reader :app, :env
 
-    def initialize(app, path)
-      @app, @path = app, path
+    def initialize(app, env)
+      @app = app
+      @env = env
     end
 
     def process
@@ -22,9 +23,16 @@ module EmberCLI
 
     private
 
+    def path
+      env["PATH_INFO"].to_s
+    end
+
     def skip?
-      invoker = app.options.fetch(:enable, TRUE_PROC)
-      !invoker.call(path)
+      configuration_proc = app.options.fetch(:enable, TRUE_PROC)
+      block_arguments = [configuration_proc.arity, 0].max
+      arguments = [path, env].first(block_arguments)
+
+      !configuration_proc.call(*arguments)
     end
 
     def start_or_restart!
