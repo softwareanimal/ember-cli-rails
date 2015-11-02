@@ -89,11 +89,11 @@ module EmberCLI
     alias exposed_css_assets exposed_js_assets
 
     def vendor_assets
-      "#{name}/vendor"
+      "#{name}/assets/vendor"
     end
 
     def application_assets
-      "#{name}/#{ember_app_name}"
+      "#{name}/assets/#{ember_app_name}"
     end
 
     def wait
@@ -261,14 +261,14 @@ module EmberCLI
     end
 
     def symlink_to_assets_root
-      assets_path.make_symlink dist_path.join("assets")
+      assets_path.make_symlink dist_path
     rescue Errno::EEXIST
       # Sometimes happens when starting multiple Unicorn workers.
       # Ignoring...
     end
 
     def add_assets_to_precompile_list
-      Rails.configuration.assets.precompile << /\A#{name}\//
+      Rails.configuration.assets.precompile << %r{\A#{name}/}
     end
 
     def command(watch: false)
