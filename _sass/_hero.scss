@@ -1,0 +1,27 @@
+.hero {
+  align-items: center;
+  background-color: $ember-orange;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.hero__code {
+  background-color: $navy;
+  border-radius: 4px;
+  padding: 1.25rem 3rem;
+
+  code {
+    font-size: 1.25rem;
+  }
+
+  .aqua {
+    color: $aqua;
+  }
+
+  .lime {
+    color: $lime;
+  }
+}

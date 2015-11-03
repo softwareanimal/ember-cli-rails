@@ -1,3 +1,10 @@
 ---
-# Front matter comment to compile scss to css
 ---
+
+@import "variables";
+
+@import "base";
+@import "typography";
+
+// Components
+@import "hero";
